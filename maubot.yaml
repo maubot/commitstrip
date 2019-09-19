@@ -1,0 +1,10 @@
+maubot: 0.1.0
+id: xyz.maubot.commitstrip
+version: 1.0.0
+license: AGPL-3.0-or-later
+modules:
+- commitstrip
+main_class: CommitBot
+extra_files:
+- base-config.yaml
+database: true
