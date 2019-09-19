@@ -235,15 +235,15 @@ class CommitBot(Plugin):
     async def _send_commit(self, room_id: RoomID, commit: CommitInfo) -> None:
         info = await self._get_media_info(commit.image_id)
         if self.config["format"] == "inline":
-            await self.client.send_text(room_id, text=f"**{commit.title}**:\n{info.url}",
-                                        html=(f"<strong>{escape(commit.title)}</strong><br/>"
+            await self.client.send_text(room_id, text=f"# {commit.title}\n{info.url}",
+                                        html=(f"<h1>{escape(commit.title)}</h1><br/>"
                                               f"<img src='{info.mxc_uri}'"
                                               f"     title='{info.file_name}'/>"))
         elif self.config["format"] in ("separate", "filename"):
             if self.config["format"] == "separate":
                 filename = info.file_name
-                await self.client.send_text(room_id, text=f"**{commit.title}**",
-                                            html=f"<strong>{escape(commit.title)}</strong>")
+                await self.client.send_text(room_id, text=f"# {commit.title}",
+                                            html=f"<h1>{escape(commit.title)}</h1>")
             else:
                 filename = info.title
             await self.client.send_image(room_id, url=info.mxc_uri, file_name=filename,
