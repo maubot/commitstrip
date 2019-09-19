@@ -283,7 +283,7 @@ class CommitBot(Plugin):
     async def _poll_commit(self) -> None:
         self.log.debug("Polling started")
         latest = await self.get_latest_commit()
-        self.latest_id = latest.id - 10
+        self.latest_id = latest.id
         while True:
             latest = await self.get_latest_commit()
             if latest.id > self.latest_id:
