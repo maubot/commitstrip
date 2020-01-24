@@ -295,7 +295,7 @@ class CommitBot(Plugin):
     @command.new(name=lambda self: self.config["base_command"],
                  help="Search for a commit and view the first result, or view the latest commit",
                  require_subcommand=False, arg_fallthrough=False)
-    @command.argument("query", required=False)
+    @command.argument("query", required=False, pass_raw=True)
     async def commit(self, evt: MessageEvent, query: Optional[str]) -> None:
         if query:
             results = self._search(query)
