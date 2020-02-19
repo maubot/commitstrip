@@ -286,10 +286,13 @@ class CommitBot(Plugin):
         latest = await self.get_latest_commit()
         self.latest_id = latest.id
         while True:
-            latest = await self.get_latest_commit()
-            if latest.id > self.latest_id:
-                self.latest_id = latest.id
-                await self.broadcast(latest)
+            try:
+                latest = await self.get_latest_commit()
+                if latest.id > self.latest_id:
+                    self.latest_id = latest.id
+                    await self.broadcast(latest)
+            except Exception:
+                self.log.exception("Failed to poll CommitStrip")
             await asyncio.sleep(self.config["poll_interval"], loop=self.loop)
 
     @command.new(name=lambda self: self.config["base_command"],
