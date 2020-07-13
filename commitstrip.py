@@ -264,8 +264,7 @@ class CommitBot(Plugin):
         spam_sleep = self.config["spam_sleep"]
         if spam_sleep < 0:
             await asyncio.gather(*[self.send_commit(sub.room_id, commit)
-                                   for sub in subscribers],
-                                 loop=self.loop)
+                                   for sub in subscribers])
         else:
             for sub in subscribers:
                 await self.send_commit(sub.room_id, commit)
