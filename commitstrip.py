@@ -33,7 +33,7 @@ from maubot.handlers import command, event
 
 
 @dataclass
-class CommitInfo(SerializableAttrs['CommitInfo']):
+class CommitInfo(SerializableAttrs):
     id: int
     image_id: int
     title: str
