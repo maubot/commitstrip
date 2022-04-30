@@ -150,7 +150,7 @@ class CommitBot(Plugin):
         self.db = db_session
         self.latest_id = 0
 
-        self.poll_task = asyncio.ensure_future(self.poll_commit(), loop=self.loop)
+        self.poll_task = asyncio.create_task(self.poll_commit())
 
     async def stop(self) -> None:
         await super().stop()
@@ -292,7 +292,7 @@ class CommitBot(Plugin):
                     await self.broadcast(latest)
             except Exception:
                 self.log.exception("Failed to poll CommitStrip")
-            await asyncio.sleep(self.config["poll_interval"], loop=self.loop)
+            await asyncio.sleep(self.config["poll_interval"])
 
     @command.new(name=lambda self: self.config["base_command"],
                  help="Search for a commit and view the first result, or view the latest commit",
